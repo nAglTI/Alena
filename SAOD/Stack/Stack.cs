@@ -1,56 +1,95 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
-namespace Stack
+namespace SAOD
 {
-    class Stack<T>
+    public class Stack<T>
     {
-        T[] data;
-
-        public int Count { get; private set; }
-
         public Stack()
         {
-            data = new T[0];
+            _blockCapacity = 4;
+            
+            _currentBlock = new Block<T>(_blockCapacity, null);
         }
 
-        public void Push(T s)
+        public void Push(T value)
         {
-            Array.Resize(ref data, Count + 1);
-            data[Count++] = s;
-        }
-
-        public T Peek()
-        {
-            if (Count > 0)
-                return data[Count - 1];
-            else
-                return default(T);
-        }
-
-        public bool IsEmpty()
-        {
-            return Count == 0;
-        }
-        public T Pop()
-        {
-            if (Count > 0)
+            if (_blockSize == _blockCapacity)
             {
-                var t = Peek();
-                Array.Resize(ref data, Count - 1);
-                --Count;
-                return t;
+                _blockCapacity *= 2;
+                
+                _currentBlock = _savedBlock ?? new Block<T>(_blockCapacity, _currentBlock);
+
+                _savedBlock = null;
+                
+                _blockSize = 0;
             }
-            else
-                throw new System.InvalidCastException("Стек пуст");
+            
+            _currentBlock.Array[_blockSize++] = value;
+            
+            ++Size;
         }
-        public void Clear()
+
+        public void Pop()
         {
-            Count = 0;
-            Array.Resize(ref data, Count);
+            if (Size == 0)
+            {
+                ThrowEmptyStackException();
+            }
+
+            --_blockSize;
+            --Size;
+
+            if (_blockSize != 0)
+            {
+                return;
+            }
+
+            _savedBlock = _currentBlock;
+            
+            _currentBlock = _currentBlock.Prev;
+
+            _blockCapacity /= 2;
+
+            _blockSize = _blockCapacity;
         }
+
+        public T Top()
+        {
+            if (Size == 0)
+            {
+                ThrowEmptyStackException();
+            }
+            
+            return _currentBlock.Array[_blockSize - 1];
+        }
+
+        public bool IsEmpty() => Size == 0;
+
+        private static void ThrowEmptyStackException()
+        {
+            throw new InvalidOperationException("Stack is empty");
+        }
+
+        public int Size { get; private set; }
+
+        private int _blockCapacity;
+        private int _blockSize;
+
+        private Block<T> _currentBlock;
+        private Block<T> _savedBlock;
+    }
+
+    internal class Block<T>
+    {
+        public Block(int capacity, Block<T> prev)
+        {
+            Prev = prev;
+            
+            Array = new T[capacity];
+        }
+        
+        public Block<T> Prev { get; }
+
+        public T[] Array { get; }
     }
 }
