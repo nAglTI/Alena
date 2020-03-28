@@ -30,7 +30,7 @@ namespace Deque
                 deq.PushBack(i);
             }
             
-            for (var i = 10_000 - 1; i > 0; --i)
+            for (var i = 10_000 - 1; i >= 0; --i)
             {
                 if (deq.PopBack() != i)
                 {

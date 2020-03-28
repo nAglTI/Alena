@@ -85,6 +85,15 @@ namespace Deque
             return _back[--_backIndex];
         }
 
+        public void Clear()
+        {
+            _back = _front = new BlockNode(_blockSize);
+
+            _frontIndex = _backIndex = 0;
+
+            Size = 0;
+        }
+
         public int Size { get; private set; }
 
         private void ThrowForEmptyDeque()
