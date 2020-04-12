@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace AVL_Tree
 {
@@ -36,6 +37,8 @@ namespace AVL_Tree
         public void Clear() => _root = null;
 
         public int Size { get; private set; }
+
+        public override string ToString() => ToStringHelper(_root).Item2;
 
         private Node InsertHelper(Node node, T key)
         {
@@ -102,6 +105,56 @@ namespace AVL_Tree
             }
             
             return Balance(node);
+        }
+        
+        private static (int, string) ToStringHelper(Node n)
+        {
+            if (n == null)
+            {
+                return (1, "\n");
+            }
+            
+            var (leftSize, leftString) = ToStringHelper(n.Left);
+            var (rightSize, rightString) = ToStringHelper(n.Right);
+
+            var objString = n.Key.ToString();
+
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.Append(' ', leftSize - 1);
+            stringBuilder.Append(objString);
+            stringBuilder.Append(' ', rightSize - 1);
+            stringBuilder.Append('\n');
+
+            var i = 0;
+
+            while (i * leftSize < leftString.Length && i * rightSize < rightString.Length)
+            {
+                stringBuilder.Append(leftString, i * leftSize, leftSize - 1);
+                stringBuilder.Append(' ', objString.Length);
+                stringBuilder.Append(rightString, i * rightSize, rightSize);
+
+                ++i;
+            }
+
+            while (i * leftSize < leftString.Length)
+            {
+                stringBuilder.Append(leftString, i * leftSize, leftSize - 1);
+                stringBuilder.Append(' ', objString.Length + rightSize - 1);
+                stringBuilder.Append('\n');
+
+                ++i;
+            }
+
+            while (i * rightSize < rightString.Length)
+            {
+                stringBuilder.Append(' ', leftSize + objString.Length - 1);
+                stringBuilder.Append(rightString, i * rightSize, rightSize);
+
+                ++i;
+            }
+
+            return (leftSize + objString.Length + rightSize - 1, stringBuilder.ToString());
         }
 
         private static Node Balance(Node node)

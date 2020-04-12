@@ -39,6 +39,13 @@ namespace AVL_Tree
             }
 
             Console.WriteLine(tree.Size == 0 ? "Test passed" : "Test failed");
+            
+            for (var i = 0; i < 20; ++i)
+            {
+                tree.Insert(random.Next());
+            }
+
+            Console.WriteLine(tree.ToString());
         }
     }
 }
