@@ -2,7 +2,7 @@ using System;
 
 namespace ArrayList
 {
-    public class Utils
+    public static class Utils
     {
         public static int BinarySearch<T>(ArrayList<T> list, T value) where T : IComparable<T>
         {

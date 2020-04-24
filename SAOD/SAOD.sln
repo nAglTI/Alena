@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deque", "Deque\Deque.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVL-Tree", "AVL-Tree\AVL-Tree.csproj", "{6CB8A25E-FC1F-4F7C-AF9C-0B6CEDC76EF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringCounter", "StringCounter\StringCounter.csproj", "{5E83E80E-C9ED-48FF-AEED-84FDC9C4471D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{6CB8A25E-FC1F-4F7C-AF9C-0B6CEDC76EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CB8A25E-FC1F-4F7C-AF9C-0B6CEDC76EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CB8A25E-FC1F-4F7C-AF9C-0B6CEDC76EF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E83E80E-C9ED-48FF-AEED-84FDC9C4471D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E83E80E-C9ED-48FF-AEED-84FDC9C4471D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E83E80E-C9ED-48FF-AEED-84FDC9C4471D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E83E80E-C9ED-48FF-AEED-84FDC9C4471D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
